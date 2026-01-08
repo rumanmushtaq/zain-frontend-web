@@ -22,8 +22,8 @@ const apiEndpoints = {
   Category: {
     ALL_CRUD: `/api/v1/categories`,
   },
-  AdminImage: {
-    UPLOAD: `/api/v1/storage/admin/upload`,
+  Image: {
+    UPLOAD: `/api/v1/storage/upload`,
   },
   Dashboard : {
     STATS :  `/api/v1/dashboard/stats`,
@@ -35,6 +35,9 @@ const apiEndpoints = {
   },
   Packages: {
     ALL : `/api/v1/packages`,
+  },
+  Deposit: {
+    ALL : `/api/v1/transactions`,
   },
   Tasks : {
     MY_TASKS: `/api/v1/tasks/my-tasks`,

@@ -16,8 +16,14 @@ import { AppDispatch } from "@/store/store";
 import useHeader from "@/hooks/useHeader";
 
 export function Header() {
-  const { user, pathname, handleToLogoutUser, mobileOpen, setMobileOpen , handleToMoveProfile} =
-    useHeader();
+  const {
+    user,
+    pathname,
+    handleToLogoutUser,
+    mobileOpen,
+    setMobileOpen,
+    handleToMoveProfile,
+  } = useHeader();
 
   const navItems = [
     { label: "Dashboard", href: "/dashboard" },
@@ -67,15 +73,17 @@ export function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#BFFF00]/20 rounded-lg">
-              <Wallet className="h-4 w-4 text-[#BFFF00]" />
-              <div>
-                <p className="text-xs text-gray-500">Balance</p>
-                <p className="text-sm font-semibold text-white">
-                  ${user?.credits?.toFixed(2)}
-                </p>
+            {user?.credits && (
+              <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#BFFF00]/20 rounded-lg">
+                <Wallet className="h-4 w-4 text-[#BFFF00]" />
+                <div>
+                  <p className="text-xs text-gray-500">Balance</p>
+                  <p className="text-sm font-semibold text-white">
+                    ${user?.credits?.toFixed(2)}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* User Menu */}
             <DropdownMenu>
@@ -94,7 +102,10 @@ export function Header() {
                 align="end"
                 className="bg-[#1a1a1a] border-white/10"
               >
-                <DropdownMenuItem onClick={handleToMoveProfile} className="text-gray-300 hover:text-white hover:bg-white/5">
+                <DropdownMenuItem
+                  onClick={handleToMoveProfile}
+                  className="text-gray-300 hover:text-white hover:bg-white/5"
+                >
                   Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">

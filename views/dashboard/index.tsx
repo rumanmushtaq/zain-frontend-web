@@ -7,7 +7,7 @@ import { ArrowRight, Zap, TrendingUp, Users, Wallet } from "lucide-react";
 import useDashboard from "./useDashboard";
 
 export default function LandingPage() {
-  const { packages } = useDashboard();
+  const { packages , handleToChosePlan} = useDashboard();
   const features = [
     {
       icon: Zap,
@@ -39,6 +39,7 @@ export default function LandingPage() {
     { label: "Collectors", value: "44K+" },
   ];
 
+  console.log("packages", packages)
   return (
     <>
       <Header />
@@ -158,7 +159,7 @@ export default function LandingPage() {
               { name: "VIP", rate: "20%", min: "$5000" },
             ] */}
 
-            {packages.map((pkg, index: number) => (
+            {packages?.map((pkg, index: number) => (
               <div
                 key={index}
                 className={`relative p-6 rounded-xl border transition-all duration-300 ${
@@ -194,6 +195,7 @@ export default function LandingPage() {
                   }`}
                   variant={pkg.featured ? "default" : "outline"}
                   size="sm"
+                  onClick={() => pkg?._id && handleToChosePlan(pkg._id)}
                 >
                   Choose Plan
                 </Button>

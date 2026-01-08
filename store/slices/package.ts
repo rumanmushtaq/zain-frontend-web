@@ -1,38 +1,34 @@
-
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Package {
-  name :string, 
-  credits : number,
-  price: number,
-  description : string,
-  isActive : boolean,
-  featured : boolean,
-  displayOrder :  number,
+  _id?: string;
+  name: string;
+  credits: number;
+  price: number;
+  description: string;
+  isActive: boolean;
+  featured: boolean;
+  displayOrder: number;
 }
 
 interface AuthState {
-  packages: Package[],
-
+  packages: Package[];
 }
-
 
 const initialState: AuthState = {
   packages: [],
-
-}
-
+};
 
 const packageSlice = createSlice({
   name: "package",
   initialState,
   reducers: {
-        // ✅ SET packages
+    // ✅ SET packages
     setPackages(state, action: PayloadAction<Package[]>) {
       state.packages = action.payload;
     },
   },
-})
+});
 
-export const { setPackages } = packageSlice.actions
-export default packageSlice.reducer
+export const { setPackages } = packageSlice.actions;
+export default packageSlice.reducer;
