@@ -16,12 +16,21 @@ const useSignup = () => {
       password: "",
       confirmPassword: "",
       referralCode: "",
+      acceptTerms : false
     },
   });
 
   const password = watch("password");
 
   const onSubmit = async (data: SignUpFormValues) => {
+    if (!data.acceptTerms) {
+      setError("acceptTerms", {
+        type: "manual",
+        message: "You must accept the Terms & Conditions",
+      });
+      return;
+    }
+
     if (data.password !== data.confirmPassword) {
       setError("confirmPassword", {
         type: "manual",

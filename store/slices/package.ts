@@ -24,7 +24,7 @@ const packageSlice = createSlice({
   initialState,
   reducers: {
     // ✅ SET packages
-    setPackages(state, action: PayloadAction<Package[]>) {
+    setPackages(state: any, action: PayloadAction<Package[]>) {
       state.packages = action.payload;
     },
   },

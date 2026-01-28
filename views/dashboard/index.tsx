@@ -234,7 +234,7 @@ export default function LandingPage() {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>
                     <Link
-                      href="#"
+                      href="/dashboard"
                       className="hover:text-primary transition-colors"
                     >
                       Dashboard
@@ -242,7 +242,7 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/tasks"
                       className="hover:text-primary transition-colors"
                     >
                       Tasks
@@ -250,10 +250,10 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/deposit"
                       className="hover:text-primary transition-colors"
                     >
-                      Packages
+                      Deposit
                     </Link>
                   </li>
                 </ul>
@@ -263,7 +263,7 @@ export default function LandingPage() {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>
                     <Link
-                      href="#"
+                      href="/terms"
                       className="hover:text-primary transition-colors"
                     >
                       Terms of Use
@@ -271,7 +271,7 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/privacy"
                       className="hover:text-primary transition-colors"
                     >
                       Privacy Policy
@@ -279,7 +279,7 @@ export default function LandingPage() {
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href="/support"
                       className="hover:text-primary transition-colors"
                     >
                       Support
@@ -323,7 +323,7 @@ export default function LandingPage() {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>
                     <Link
-                      href="#"
+                      href="/contact"
                       className="hover:text-primary transition-colors"
                     >
                       support@wisdomworks.com

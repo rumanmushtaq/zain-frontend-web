@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Header } from "@/components/header";
 import { ArrowRight, Mail, Lock, User } from "lucide-react";
 import useSignup from "./useSignup";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function SignUpPage() {
   const {
@@ -19,6 +20,7 @@ export default function SignUpPage() {
     onSubmit,
     password,
   } = useSignup();
+  const acceptTerms = watch("acceptTerms");
 
   return (
     <>
@@ -150,6 +152,49 @@ export default function SignUpPage() {
                 )}
               </div>
 
+              {/* TERMS & CONDITIONS */}
+              <div>
+                <Controller
+                  name="acceptTerms"
+                  control={control}
+                  rules={{
+                    required: "You must accept the Terms & Conditions",
+                  }}
+                  render={({ field }) => (
+                    <div className="flex items-start gap-3">
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <p className="text-sm text-foreground/70">
+                        I agree to the{" "}
+                        <Link
+                          href="/terms"
+                          className="text-primary underline"
+                          target="_blank"
+                        >
+                          Terms & Conditions
+                        </Link>{" "}
+                        and{" "}
+                        <Link
+                          href="/privacy-policy"
+                          className="text-primary underline"
+                          target="_blank"
+                        >
+                          Privacy Policy
+                        </Link>
+                      </p>
+                    </div>
+                  )}
+                />
+
+                {errors.acceptTerms && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.acceptTerms.message}
+                  </p>
+                )}
+              </div>
+
               {/* REFERRAL CODE */}
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -166,7 +211,7 @@ export default function SignUpPage() {
 
               <Button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !acceptTerms}
                 className="w-full bg-primary hover:bg-primary/90 rounded-lg cursor-pointer"
               >
                 {isSubmitting ? "Creating Account..." : "Create Account"}

@@ -33,6 +33,7 @@ export function Header() {
     { label: "Refer", href: "/refer" },
   ];
 
+
   return (
     <header className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,7 +74,7 @@ export function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            {user?.credits && (
+            {user?.credits > 0 && (
               <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#BFFF00]/20 rounded-lg">
                 <Wallet className="h-4 w-4 text-[#BFFF00]" />
                 <div>
@@ -86,45 +87,47 @@ export function Header() {
             )}
 
             {/* User Menu */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="rounded-full hover:bg-white/5"
+            {user?.firstName && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="rounded-full hover:bg-white/5"
+                  >
+                    <div className="w-8 h-8 bg-[#BFFF00]/20 rounded-full flex items-center justify-center text-[#BFFF00] font-semibold">
+                      {user?.firstName?.[0]?.toUpperCase() || "U"}
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="bg-[#1a1a1a] border-white/10"
                 >
-                  <div className="w-8 h-8 bg-[#BFFF00]/20 rounded-full flex items-center justify-center text-[#BFFF00] font-semibold">
-                    {user?.firstName?.[0]?.toUpperCase() || "U"}
-                  </div>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="bg-[#1a1a1a] border-white/10"
-              >
-                <DropdownMenuItem
-                  onClick={handleToMoveProfile}
-                  className="text-gray-300 hover:text-white hover:bg-white/5"
-                >
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">
-                  Wallets
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">
-                  Notifications
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={handleToLogoutUser}
-                  className="text-red-400 hover:text-red-300 hover:bg-white/5"
-                >
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <DropdownMenuItem
+                    onClick={handleToMoveProfile}
+                    className="text-gray-300 hover:text-white hover:bg-white/5"
+                  >
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">
+                    Wallets
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">
+                    Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-white/5">
+                    Notifications
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleToLogoutUser}
+                    className="text-red-400 hover:text-red-300 hover:bg-white/5"
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
 
             {/* Mobile Menu */}
             <button
@@ -152,7 +155,7 @@ export function Header() {
             </div>
 
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = pathname === item?.href;
               return (
                 <Link
                   key={item.href}
@@ -164,7 +167,7 @@ export function Header() {
                   }`}
                   onClick={() => setMobileOpen(false)}
                 >
-                  {item.label}
+                  {item?.label}
                 </Link>
               );
             })}

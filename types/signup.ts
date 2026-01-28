@@ -1,7 +1,8 @@
 export interface SignUpFormValues {
-  username: string
-  email: string
-  password: string
-  confirmPassword: string
-  referralCode?: string
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  referralCode?: string;
+  acceptTerms: boolean;
 }
