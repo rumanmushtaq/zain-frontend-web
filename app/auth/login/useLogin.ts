@@ -25,13 +25,6 @@ const useLogin = () => {
   const onSubmit = async (data: LoginFormValues) => {
     try {
       const res = await authService.loginApi(data);
-      if (!res?.data?.success) {
-        setError("root", {
-          type: "server",
-          message: res.error || "Login failed",
-        });
-        return;
-      }
 
       console.log("res",res)
       if (res?.data?.success) {
@@ -51,7 +44,8 @@ const useLogin = () => {
         window.location.href = "/dashboard";
       }
 
-    } catch {
+    } catch(err) {
+      console.log("errors", err);
       setError("root", {
         type: "server",
         message: "An error occurred. Please try again.",

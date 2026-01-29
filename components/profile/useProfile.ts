@@ -34,15 +34,20 @@ const useProfile = () => {
       username: user?.username || user?.firstName?.toLowerCase() || "",
     },
   });
+
   const onSubmit = async (data: ProfileFormValues) => {
-    setLoader(true)
+    setLoader(true);
     try {
-      const result = await authService.updateProfile(data);
-      dispatch(setUser(result.data));
-      toast({
-        title: "Profile updated",
-        description: "Your profile information has been saved successfully.",
-      });
+      const res = await authService.updateProfile(data);
+      console.log("res", res);
+
+      if (res?.success) {
+        dispatch(setUser({ user: res?.data }));
+        toast({
+          title: "Profile updated",
+          description: "Your profile information has been saved successfully.",
+        });
+      }
     } catch (error: any) {
       toast({
         title: "Profile update failed",
@@ -51,8 +56,8 @@ const useProfile = () => {
           "Something went wrong. Please try again.",
         variant: "destructive",
       });
-    }finally{
-      setLoader(false)
+    } finally {
+      setLoader(false);
     }
   };
 

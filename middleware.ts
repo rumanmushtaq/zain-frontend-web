@@ -10,10 +10,10 @@ const PROTECTED_PATHS = [
 ]
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value
+  const access_token = request.cookies.get('access_token')?.value
   const { pathname } = request.nextUrl
 
-  if (!token && PROTECTED_PATHS.includes(pathname)) {
+  if (!access_token && PROTECTED_PATHS.includes(pathname)) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
