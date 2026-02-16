@@ -43,7 +43,22 @@ const apiEndpoints = {
     MY_TASKS: `/api/v1/tasks/my-tasks`,
     ALL_GET: `/api/v1/tasks`,
     START: `/api/v1/tasks/start`
-  }
+  },
+REFERRAL : {
+  ALL: `/api/v1/users/referrals`
+},
+
+Wallets : {
+  ALL : `/api/v1/wallets`
+},
+Withdraws : {
+  MY : `/api/v1/withdrawals/my-withdrawals`,
+  CREATE : `/api/v1/withdrawals`
+}
+
+
+
+
 };
 
 export default apiEndpoints;

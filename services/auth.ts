@@ -32,6 +32,7 @@ class AuthService {
       email: params.email,
       password: params.password,
       referralCode: params.referralCode,
+      acceptTerms : params.acceptTerms
     };
     try {
       const res = await HTTP_CLIENT.post(apiEndpoints.Auth.REGISTER, payload);

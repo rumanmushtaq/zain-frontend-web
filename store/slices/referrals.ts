@@ -15,26 +15,26 @@ export interface Deposit {
 }
 
 interface AuthState {
-  deposits: any[];
+  referralList: any[];
 }
 
 const initialState: AuthState = {
-  deposits: [],
+  referralList: [],
 };
 
-const depositSlice = createSlice({
-  name: "deposit",
+const referralSlice = createSlice({
+  name: "referral",
   initialState,
   reducers: {
-    // ✅ SET deposits
-    setDeposits(state, action: PayloadAction<Deposit[]>) {
-      state.deposits = action.payload;
+    // ✅ SET packages
+    setReferrals(state, action: PayloadAction<Deposit[]>) {
+      state.referralList = action.payload;
     },
-     addDepositToTop(state, action: PayloadAction<Deposit>) {
-      state.deposits.unshift(action.payload);
+     addReferralToTop(state, action: PayloadAction<Deposit>) {
+      state.referralList.unshift(action.payload);
     },
   },
 });
 
-export const { setDeposits , addDepositToTop} = depositSlice.actions;
-export default depositSlice.reducer;
+export const { setReferrals , addReferralToTop} = referralSlice.actions;
+export default referralSlice.reducer;

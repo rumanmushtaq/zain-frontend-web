@@ -19,16 +19,13 @@ class DepositService {
 
   async getUserTransactions(): Promise<any> {
     try {
-      const res = await HTTP_CLIENT.get(`${apiEndpoints.Deposit.ALL}/user`);
-      return {
-        success: true,
-        data: res.data,
-      };
+ 
+          const { data } = await HTTP_CLIENT.get(
+              `${apiEndpoints.Deposit.ALL}/user`,
+            );
+      return data
     } catch (error: any) {
-      return {
-        success: false,
-        data: error.message,
-      };
+      return error.message;
     }
   }
 

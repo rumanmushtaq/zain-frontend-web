@@ -17,6 +17,8 @@ import authReducer from "./slices/auth";
 import packagesReducer from "./slices/package";
 import tasksReducer from "./slices/tasks";
 import depositReducer from "./slices/deposit";
+import referralReducer from "./slices/referrals"
+import walletsReducer from "./slices/wallets";
 /* ---------------------------------------------
    Root Reducer
 --------------------------------------------- */
@@ -25,6 +27,8 @@ const rootReducer = combineReducers({
   packages: packagesReducer,
   tasks: tasksReducer,
   deposit: depositReducer,
+  referral : referralReducer,
+  wallets : walletsReducer
   //   user: userReducer,
 });
 

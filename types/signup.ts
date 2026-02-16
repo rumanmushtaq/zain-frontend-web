@@ -3,6 +3,6 @@ export interface SignUpFormValues {
   email: string;
   password: string;
   confirmPassword: string;
-  referralCode?: string;
+  referralCode?: string | undefined;
   acceptTerms: boolean;
 }

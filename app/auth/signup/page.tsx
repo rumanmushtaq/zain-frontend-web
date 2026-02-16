@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Header } from "@/components/header";
-import { ArrowRight, Mail, Lock, User } from "lucide-react";
+import { ArrowRight, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import useSignup from "./useSignup";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -19,6 +19,8 @@ export default function SignUpPage() {
     setError,
     onSubmit,
     password,
+    showPassword,
+    setShowPassword,
   } = useSignup();
   const acceptTerms = watch("acceptTerms");
 
@@ -114,9 +116,34 @@ export default function SignUpPage() {
                       },
                     }}
                     render={({ field }) => (
-                      <Input {...field} type="password" className="pl-10" />
+                      <Input
+                        {...field}
+                        type={showPassword?.password ? "text" : "password"}
+                        className="px-10"
+                      />
                     )}
                   />
+                  {showPassword?.password ? (
+                    <Eye
+                      onClick={() =>
+                        setShowPassword((prev) => ({
+                          ...prev,
+                          password: false,
+                        }))
+                      }
+                      className="absolute right-3 top-3 h-4 w-4 text-primary"
+                    />
+                  ) : (
+                    <EyeOff
+                      onClick={() =>
+                        setShowPassword((prev) => ({
+                          ...prev,
+                          password: true,
+                        }))
+                      }
+                      className="absolute right-3 top-3 h-4 w-4 text-primary"
+                    />
+                  )}
                 </div>
                 {errors.password && (
                   <p className="text-sm text-destructive mt-1">
@@ -141,9 +168,36 @@ export default function SignUpPage() {
                         value === password || "Passwords do not match",
                     }}
                     render={({ field }) => (
-                      <Input {...field} type="password" className="pl-10" />
+                      <Input
+                        {...field}
+                        type={
+                          showPassword?.confirmPassword ? "text" : "password"
+                        }
+                        className="px-10"
+                      />
                     )}
                   />
+                  {showPassword?.confirmPassword ? (
+                    <Eye
+                      onClick={() =>
+                        setShowPassword((prev) => ({
+                          ...prev,
+                          confirmPassword: false,
+                        }))
+                      }
+                      className="absolute right-3 top-3 h-4 w-4 text-primary"
+                    />
+                  ) : (
+                    <EyeOff
+                      onClick={() =>
+                        setShowPassword((prev) => ({
+                          ...prev,
+                          confirmPassword: true,
+                        }))
+                      }
+                      className="absolute right-3 top-3 h-4 w-4 text-primary"
+                    />
+                  )}
                 </div>
                 {errors.confirmPassword && (
                   <p className="text-sm text-destructive mt-1">
@@ -196,7 +250,7 @@ export default function SignUpPage() {
               </div>
 
               {/* REFERRAL CODE */}
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium mb-2">
                   Referral Code (Optional)
                 </label>
@@ -207,7 +261,7 @@ export default function SignUpPage() {
                     <Input {...field} placeholder="Enter referral code" />
                   )}
                 />
-              </div>
+              </div> */}
 
               <Button
                 type="submit"
