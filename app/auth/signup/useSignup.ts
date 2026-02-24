@@ -4,8 +4,14 @@ import { useForm } from "react-hook-form";
 import authService from "@/services/auth";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { loginSuccess, setUser } from "@/store/slices/auth";
 
 const useSignup = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { toast } = useToast();
   const searchParams = useSearchParams();
   const referralCode = searchParams.get("ref") ?? undefined;
   const [showPassword, setShowPassword] = useState<{
@@ -52,24 +58,33 @@ const useSignup = () => {
       return;
     }
 
-
-
     try {
       const res = await authService.signupApi(data);
 
-      // if (!res.ok) {
-      //   setError("root", {
-      //     type: "server",
-      //     message: result.error || "Sign up failed",
-      //   });
-      //   return;
-      // }
 
-      // window.location.href = "/dashboard";
-    } catch {
-      setError("root", {
-        type: "server",
-        message: "An error occurred. Please try again.",
+      console.log("res", res)
+
+      if (res?.data?.success) {
+        document.cookie = `access_token=${res?.data?.access_token}; path=/; max-age=3600`; // 1 hour
+        document.cookie = `refresh_token=${
+          res?.data?.refresh_token
+        }; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
+
+        dispatch(
+          loginSuccess({
+            accessToken: res?.data?.access_token,
+            refreshToken: res?.data?.refresh_token,
+          }),
+        );
+        dispatch(setUser({ user: res?.data?.user }));
+        window.location.href = "/dashboard";
+      }
+    } catch (error: any) {
+      console.log("err", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message || error.response.data.message,
       });
     }
   };

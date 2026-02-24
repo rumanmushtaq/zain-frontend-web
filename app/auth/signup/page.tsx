@@ -118,6 +118,7 @@ export default function SignUpPage() {
                     render={({ field }) => (
                       <Input
                         {...field}
+                        placeholder="********"
                         type={showPassword?.password ? "text" : "password"}
                         className="px-10"
                       />
@@ -170,6 +171,7 @@ export default function SignUpPage() {
                     render={({ field }) => (
                       <Input
                         {...field}
+                        placeholder="********"
                         type={
                           showPassword?.confirmPassword ? "text" : "password"
                         }
@@ -217,10 +219,11 @@ export default function SignUpPage() {
                   render={({ field }) => (
                     <div className="flex items-start gap-3">
                       <Checkbox
+                      id="terms"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
-                      <p className="text-sm text-foreground/70">
+                      <label htmlFor="terms" className="text-sm text-foreground/70">
                         I agree to the{" "}
                         <Link
                           href="/terms"
@@ -237,7 +240,7 @@ export default function SignUpPage() {
                         >
                           Privacy Policy
                         </Link>
-                      </p>
+                      </label>
                     </div>
                   )}
                 />

@@ -9,6 +9,9 @@ import axios, {
 
 import Cookies from "js-cookie";
 import apiEndpoints from "./apiConfig";
+import { dispatchApiError } from "@/app/api/event";
+import { toast } from "@/components/ui/use-toast";
+import { showToast } from "@/lib/toast";
 
 interface ErrorResponseData {
   message?: string; // Define the `message` property as optional
@@ -29,7 +32,7 @@ export const setupAxios = () => {
       const publicEndpoints = [LOGIN];
 
       const isPublicEndpoint = publicEndpoints.some((endpoint) =>
-        config.url?.includes(endpoint)
+        config.url?.includes(endpoint),
       );
       if (accessToken && refreshToken && !isPublicEndpoint) {
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -46,7 +49,7 @@ export const setupAxios = () => {
       console.error("Request error: ", error);
       //   toast.error("Failed to send the request. Please try again.");
       return Promise.reject(error);
-    }
+    },
   );
 
   // Response interceptor
@@ -68,9 +71,17 @@ export const setupAxios = () => {
           console.log("Session expired. Please log in again.");
           window.location.href = "/auth/login";
         } else if (status >= 400 && status < 500) {
-          // Client-side errors
-          // toast.error(`Error: ${message}`);
-          console.log("Error: ", message);
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(
+              new CustomEvent("api-error", {
+                detail: {
+                  variant: "destructive",
+                  title: "Error",
+                  description: message,
+                },
+              }),
+            );
+          }
         } else if (status >= 500) {
           // Server-side errors
           // toast.error("Server error. Please try again later.");
@@ -87,7 +98,7 @@ export const setupAxios = () => {
       }
 
       return Promise.reject(error);
-    }
+    },
   );
 
   return HTTP_CLIENT_INSTANCE;

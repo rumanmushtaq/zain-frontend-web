@@ -74,7 +74,7 @@ export function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            {user?.credits > 0 && (
+            {user?.credits >= 0 && (
               <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#BFFF00]/20 rounded-lg">
                 <Wallet className="h-4 w-4 text-[#BFFF00]" />
                 <div>
@@ -87,7 +87,7 @@ export function Header() {
             )}
 
             {/* User Menu */}
-            {user?.firstName && (
+            {(user?.firstName || user?.username) && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -96,7 +96,7 @@ export function Header() {
                     className="rounded-full hover:bg-white/5"
                   >
                     <div className="w-8 h-8 bg-[#BFFF00]/20 rounded-full flex items-center justify-center text-[#BFFF00] font-semibold">
-                      {user?.firstName?.[0]?.toUpperCase() || "U"}
+                      {(user?.firstName || user?.username)?.[0]?.toUpperCase() || "U"}
                     </div>
                   </Button>
                 </DropdownMenuTrigger>

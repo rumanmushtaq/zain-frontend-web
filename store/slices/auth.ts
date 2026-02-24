@@ -33,7 +33,7 @@ const initialState: AuthState = {
     firstName: "",
     username: "",
     lastName: "",
-    credits: 0,
+    credits: -1,
     createdAt: "",
     email: "",
     isActive: false,
@@ -41,7 +41,7 @@ const initialState: AuthState = {
 
     referralCode: "",
     role: "",
-    totalEarnings: 0,
+    totalEarnings: -1,
     updatedAt: "",
     _id: "",
   },

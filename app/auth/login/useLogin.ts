@@ -1,13 +1,15 @@
 "use client";
 import { LoginFormValues } from "@/types/login";
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import authService from "@/services/auth";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { loginSuccess, setUser } from "@/store/slices/auth";
+import { toast } from "sonner";
 
 const useLogin = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const {
     control,
@@ -26,25 +28,27 @@ const useLogin = () => {
     try {
       const res = await authService.loginApi(data);
 
-      console.log("res",res)
-      if (res?.data?.success) {
+      console.log("res", res)
+
+  
+      if (res?.success) {
         // ✅ Save to cookies
-        document.cookie = `access_token=${res?.data?.access_token}; path=/; max-age=3600`; // 1 hour
+        document.cookie = `access_token=${res?.access_token}; path=/; max-age=3600`; // 1 hour
         document.cookie = `refresh_token=${
-          res?.data?.refresh_token
+          res?.refresh_token
         }; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
 
         dispatch(
           loginSuccess({
-            accessToken: res?.data?.access_token,
-            refreshToken: res?.data?.refresh_token,
-          })
+            accessToken: res?.access_token,
+            refreshToken: res?.refresh_token,
+          }),
         );
-        dispatch(setUser({ user: res?.data?.user }));
+        dispatch(setUser({ user: res?.user }));
+        toast.success(res.message);
         window.location.href = "/dashboard";
       }
-
-    } catch(err) {
+    } catch (err) {
       console.log("errors", err);
       setError("root", {
         type: "server",
@@ -59,6 +63,8 @@ const useLogin = () => {
     formState: { errors, isSubmitting },
     setError,
     onSubmit,
+    showPassword,
+    setShowPassword,
   };
 };
 

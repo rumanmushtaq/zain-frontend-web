@@ -15,15 +15,9 @@ class AuthService {
     };
     try {
       const res = await HTTP_CLIENT.post(apiEndpoints.Auth.LOGIN, payload);
-      return {
-        success: true,
-        data: res.data,
-      };
+      return res.data;
     } catch (error: any) {
-      return {
-        success: false,
-        data: error.message,
-      };
+      return error.message;
     }
   }
   async signupApi(params: SignUpFormValues): Promise<any> {
@@ -32,19 +26,13 @@ class AuthService {
       email: params.email,
       password: params.password,
       referralCode: params.referralCode,
-      acceptTerms : params.acceptTerms
+      acceptTerms: params.acceptTerms,
     };
     try {
       const res = await HTTP_CLIENT.post(apiEndpoints.Auth.REGISTER, payload);
-      return {
-        success: true,
-        data: res.data,
-      };
+      return res.data;
     } catch (error: any) {
-      return {
-        success: false,
-        data: error.message,
-      };
+      return error.message;
     }
   }
 
@@ -55,7 +43,7 @@ class AuthService {
     try {
       const res = await HTTP_CLIENT.post(
         apiEndpoints.Auth.FORGET_PASSWORD,
-        payload
+        payload,
       );
       return {
         success: true,
@@ -75,7 +63,7 @@ class AuthService {
     try {
       const res = await HTTP_CLIENT.post(
         apiEndpoints.Auth.OTP_VERIFICATION,
-        payload
+        payload,
       );
       return {
         success: true,
@@ -98,7 +86,7 @@ class AuthService {
     try {
       const res = await HTTP_CLIENT.post(
         apiEndpoints.Auth.CHANGE_PASSWORD,
-        payload
+        payload,
       );
       return {
         success: true,

@@ -1,12 +1,10 @@
 "use client";
 
-import type React from "react";
 import Link from "next/link";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Header } from "@/components/header";
-import { ArrowRight, Mail, Lock } from "lucide-react";
+import { ArrowRight, Mail, Lock, Eye, EyeOff, Loader } from "lucide-react";
 import useLogin from "./useLogin";
 
 export default function LoginPage() {
@@ -16,6 +14,8 @@ export default function LoginPage() {
     formState: { errors, isSubmitting },
     setError,
     onSubmit,
+    showPassword,
+    setShowPassword,
   } = useLogin();
 
   return (
@@ -91,12 +91,26 @@ export default function LoginPage() {
                       },
                     }}
                     render={({ field }) => (
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="Enter your password"
-                        className="pl-10"
-                      />
+                      <div className="relative flex items-center">
+                        <Input
+                          {...field}
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Enter your password"
+                          className="pl-10 pr-10"
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((prev) => !prev)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        >
+                          {showPassword ? (
+                            <Eye className="w-4 h-4 text-primary" />
+                          ) : (
+                            <EyeOff className="w-4 h-4 text-primary" />
+                          )}
+                        </button>
+                      </div>
                     )}
                   />
                 </div>
@@ -137,8 +151,12 @@ export default function LoginPage() {
                 disabled={isSubmitting}
                 className="w-full bg-primary hover:bg-primary/90 rounded-lg cursor-pointer"
               >
-                {isSubmitting ? "Signing In..." : "Sign In"}
-                <ArrowRight className="ml-2 h-4 w-4" />
+                Sign In{" "}
+                {isSubmitting ? (
+                  <Loader className="ml-2 h-4 w-4" />
+                ) : (
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                )}
               </Button>
             </form>
 

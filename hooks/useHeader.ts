@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/auth";
+import Cookies from "js-cookie";
 
 const useHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,6 +14,8 @@ const useHeader = () => {
 
   const handleToLogoutUser = async () => {
     try {
+      Cookies.remove("access_token");
+      Cookies.remove("refresh_token");
       dispatch(logout());
       router.push("/auth/login");
     } catch (error) {
